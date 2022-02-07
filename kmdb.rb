@@ -71,17 +71,18 @@
 # TODO!
 
 Movie.destroy_all
+Role.destroy_all
+Person.destroy_all
 
 # Generate models and tables, according to the domain model
 # TODO!
+
 
 # Insert data into your database that reflects the sample data shown above
 # Do not use hard-coded foreign key IDs.
 # TODO!
 
-values = { title: "Batman Begins", year: 2005, rating: "PG-13", director: "Christopher Nolan" }
-batman1 = Movie.new(values)
-batman1.save
+
 
 # Prints a header for the movies output
 puts "Movies"
