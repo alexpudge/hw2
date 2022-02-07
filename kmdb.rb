@@ -77,6 +77,7 @@ Person.destroy_all
 # Generate models and tables, according to the domain model
 # TODO!
 
+movies = Movie.create([{ name: "Batman Begins" }, { name: "The Dark Knight" }, { name: "The Dark Knight Rises" }])
 
 # Insert data into your database that reflects the sample data shown above
 # Do not use hard-coded foreign key IDs.
