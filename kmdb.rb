@@ -70,9 +70,10 @@
 # Use `Model.destroy_all` code.
 # TODO!
 
-Movie.destroy_all
+
 Person.destroy_all
 Role.destroy_all
+Movie.destroy_all
 
 # Generate models and tables, according to the domain model
 # TODO!
@@ -82,18 +83,7 @@ Role.destroy_all
 # TODO!
 
 people = [
-    "Christopher Nolan",
-    "Christian Bale",
-    "Michael Caine",
-    "Liam Neeson",
-    "Katie Holmes",
-    "Gary Oldman",
-    "Heath Ledger",
-    "Aaron Eckhart",
-    "Maggie Gyllenhaal",
-    "Tom Hardy",
-    "Joseph Gordon-Levitt",
-    "Anne Hathaway"
+    "Christopher Nolan", "Christian Bale", "Michael Caine", "Liam Neeson", "Katie Holmes", "Gary Oldman", "Heath Ledger", "Aaron Eckhart", "Maggie Gyllenhaal", "Tom Hardy", "Joseph Gordon-Levitt", "Anne Hathaway"
 ]
 
 for person in people
@@ -101,9 +91,6 @@ for person in people
     new_person.name = person
     new_person.save
 end
-
-only_director = Person.where({name: "Christopher Nolan"})[0]
-ony_director_id = only_director.id
 
 
 movies = [
@@ -161,7 +148,10 @@ puts ""
 # Query the movies data and loop through the results to display the movies output
 # TODO!
 
-tp Movie.all, "title", "year_released", "rated", "person.name" => {:width => 32}
+# used table_print insetad of a puts loop to get evenly spaced columns
+# first, added [gem "table_print"] into the gemfile
+
+tp Movie.all, "title", "year_released", "rated", "person.name" 
 
 # Prints a header for the cast output
 puts ""
@@ -172,4 +162,6 @@ puts ""
 # Query the cast data and loop through the results to display the cast output for each movie
 # TODO!
 
-tp Role.all, "movie.title", "character_name", "person.name" => {:width => 32}
+#used table_print insetad of a puts loop to get evenly spaced columns
+
+tp Role.all, "movie.title", "character_name", "person.name" 
