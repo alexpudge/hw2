@@ -128,6 +128,7 @@ GEM
     reline (0.3.0)
       io-console (~> 0.5)
     sqlite3 (1.4.2)
+    table_print (1.5.7)
     tabulo (2.8.0)
       tty-screen (= 0.8.1)
       unicode-display_width (= 2.1.0)
@@ -156,6 +157,7 @@ DEPENDENCIES
   puma (~> 5.0)
   rails (~> 7.0.0)
   sqlite3 (~> 1.4)
+  table_print
   tabulo
   tzinfo-data
   web-console

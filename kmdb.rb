@@ -71,25 +71,87 @@
 # TODO!
 
 Movie.destroy_all
-Role.destroy_all
 Person.destroy_all
+Role.destroy_all
 
 # Generate models and tables, according to the domain model
 # TODO!
-
 
 # Insert data into your database that reflects the sample data shown above
 # Do not use hard-coded foreign key IDs.
 # TODO!
 
-batman1 = Movie.new
-batman1.name = "Batman Begins"
-batman1.year = 2005
-batman1.rating = "PG-13"
-batman1.director = "Christopher Nolan"
-batman1.save
+people = [
+    "Christopher Nolan",
+    "Christian Bale",
+    "Michael Caine",
+    "Liam Neeson",
+    "Katie Holmes",
+    "Gary Oldman",
+    "Heath Ledger",
+    "Aaron Eckhart",
+    "Maggie Gyllenhaal",
+    "Tom Hardy",
+    "Joseph Gordon-Levitt",
+    "Anne Hathaway"
+]
+
+for person in people
+    new_person = Person.new
+    new_person.name = person
+    new_person.save
+end
+
+only_director = Person.where({name: "Christopher Nolan"})[0]
+ony_director_id = only_director.id
 
 
+movies = [
+    {title: "Batman Begins", year_released: 2005, rated: "PG-13", director: "Christopher Nolan"},
+    {title: "The Dark Knight", year_released: 2008, rated: "PG-13", director: "Christopher Nolan"},
+    {title: "The Dark Knight Rises", year_released: 2012, rated: "PG-13", director: "Christopher Nolan"}
+]
+
+for movie in movies
+    new_movie = Movie.new
+    new_movie.title = movie[:title]
+    new_movie.year_released = movie[:year_released]
+    new_movie.rated = movie[:rated]
+    director = Person.where({name: movie[:director]})[0]
+    director_id = director.id
+    new_movie.person_id = director_id  
+    new_movie.save
+end
+
+roles = [
+    {movie: "Batman Begins", person: "Christian Bale", character_name: "Bruce Wayne"},
+    {movie: "Batman Begins", person: "Michael Caine", character_name: "Alfred"},
+    {movie: "Batman Begins", person: "Liam Neeson", character_name: "Ra's Al Ghul"},
+    {movie: "Batman Begins", person: "Katie Holmes", character_name: "Rachel Dawes"},
+    {movie: "Batman Begins", person: "Gary Oldman", character_name: "Commissioner Gordon"},
+    {movie: "The Dark Knight", person: "Christian Bale", character_name: "Bruce Wayne"},
+    {movie: "The Dark Knight", person: "Heath Ledger", character_name: "Joker"},
+    {movie: "The Dark Knight", person: "Aaron Eckhart", character_name: "Harvey Dent"},
+    {movie: "The Dark Knight", person: "Michael Caine", character_name: "Alfred"},
+    {movie: "The Dark Knight", person: "Maggie Gyllenhaal", character_name: "Rachel Dawes"},
+    {movie: "The Dark Knight Rises", person: "Christian Bale", character_name: "Bruce Wayne"},
+    {movie: "The Dark Knight Rises", person: "Gary Oldman", character_name: "Commissioner Gordon"},
+    {movie: "The Dark Knight Rises", person: "Tom Hardy", character_name: "Bane"},
+    {movie: "The Dark Knight Rises", person: "Joseph Gordon-Levitt", character_name: "John Blake"},
+    {movie: "The Dark Knight Rises", person: "Anne Hathaway", character_name: "Selina Kyle"}
+]
+
+for role in roles
+    new_role = Role.new
+    movie = Movie.where({title: role[:movie]})[0]
+    movie_id = movie.id
+    new_role.movie_id = movie_id
+    person = Person.where({name: role[:person]})[0]
+    person_id = person.id
+    new_role.person_id = person_id
+    new_role.character_name = role[:character_name]
+    new_role.save
+end
 
 # Prints a header for the movies output
 puts "Movies"
@@ -99,6 +161,8 @@ puts ""
 # Query the movies data and loop through the results to display the movies output
 # TODO!
 
+tp Movie.all, "title", "year_released", "rated", "person.name" => {:width => 32}
+
 # Prints a header for the cast output
 puts ""
 puts "Top Cast"
@@ -107,3 +171,5 @@ puts ""
 
 # Query the cast data and loop through the results to display the cast output for each movie
 # TODO!
+
+tp Role.all, "movie.title", "character_name", "person.name" => {:width => 32}
